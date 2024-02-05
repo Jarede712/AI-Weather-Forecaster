@@ -1,5 +1,6 @@
 const { OpenAI } = require('@langchain/openai');
 require('dotenv').config();
+const inquirer = require('inquirer');
 
 const model = new OpenAI({
   openAIApiKey: process.env.OPENAI_API_KEY,
@@ -7,11 +8,9 @@ const model = new OpenAI({
   model: 'gpt-3.5-turbo',
 });
 
-const promptFunc = async () => {
+const promptFunc = async (input) => {
   try {
-    const res = await model.call(
-      'Give me the 7 day weather forecast for San Diego'
-    );
+    const res = await model.call(input);
     console.log(res);
   } catch (err) {
     console.error(err);
@@ -19,3 +18,19 @@ const promptFunc = async () => {
 };
 
 promptFunc();
+
+const init = () => {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'name',
+        message: 'Ask for a location to get the 7 day weather report!',
+      },
+    ])
+    .then((inquirerResponse) => {
+      promptFunc(inquirerResponse.name);
+    });
+};
+
+init();
