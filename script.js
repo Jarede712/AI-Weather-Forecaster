@@ -7,4 +7,15 @@ const model = new OpenAI({
   model: 'gpt-3.5-turbo',
 });
 
-console.log({ model });
+const promptFunc = async () => {
+  try {
+    const res = await model.call(
+      'Give me the 7 day weather forecast for San Diego'
+    );
+    console.log(res);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+promptFunc();
