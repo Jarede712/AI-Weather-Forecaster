@@ -4,7 +4,7 @@
 
 ## Description
 
-This is a CLI application that implements the node package "inquirer" and OpenAI's gpt-3.5-turbo model, along with Langchain to create an AI powered weather forecatser, it is capable of giving users the current temperature as well as the seven day weather forecast for any location of their choosing. Currently it is only usuable through the command line.
+This is a CLI application that implements the node package "inquirer" and OpenAI's gpt-3.5-turbo model, along with Langchain to create an AI powered weather forecatser, it is capable of giving users the current temperature as well as the seven day weather forecast for any location of their choosing. Currently it is only usuable through the command line. (DUE TO IT USING THE GPT-3.5-TURBO MODEL, FORECASTS MAY BE OFF)
 
 ## Table of Contents
 

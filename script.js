@@ -16,8 +16,7 @@ const model = new OpenAI({
 const parser = StructuredOutputParser.fromNamesAndDescriptions({
   Current_Temperature:
     'The current temperature of the location specified by the user',
-  Forecast:
-    'Seven day weather forecast, broken down day by day for the user in the form of a concise chart',
+  Forecast: 'Seven day weather forecast for the location specified by the user',
 });
 
 const formatInstructions = parser.getFormatInstructions(); // Get the format instructions for the parser
@@ -27,7 +26,7 @@ const promptFunc = async (input) => {
   try {
     const prompt = new PromptTemplate({
       template:
-        'You are an expert weather forecaster, when the user gives you, or asks about, a location, you will provide them with a breakdown of the seven day weather forecast for that location, as well as the current temperature of the location specified.\n{format_instructions}\n{question}',
+        'You are an expert weather forecaster, when the user gives you a location, you will provide them with the current, real-time temperature of that location, as well as the seven day weather forecast for that location.\n{format_instructions}\n{question}',
       inputVariables: ['question'],
       partialVariables: { format_instructions: formatInstructions },
     });
@@ -48,7 +47,8 @@ const init = () => {
       {
         type: 'input',
         name: 'name',
-        message: 'Ask for a location to get the 7 day weather report!',
+        message:
+          'Ask for a location to get the 7 day weather report! (City, State)',
       },
     ])
     .then((inquirerResponse) => {
