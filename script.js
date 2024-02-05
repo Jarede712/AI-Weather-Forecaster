@@ -1,15 +1,18 @@
+// Dependencies
 const { OpenAI } = require('@langchain/openai');
 require('dotenv').config();
 const inquirer = require('inquirer');
 const { PromptTemplate } = require('@langchain/core/prompts');
 const { StructuredOutputParser } = require('langchain/output_parsers');
 
+// Creates and stores a wrapper for the OpenAI package along with basic configuration
 const model = new OpenAI({
   openAIApiKey: process.env.OPENAI_API_KEY,
   temperature: 0,
   model: 'gpt-3.5-turbo',
 });
 
+// Creates a parser for the output of the model
 const parser = StructuredOutputParser.fromNamesAndDescriptions({
   Current_Temperature:
     'The current temperature of the location specified by the user',
@@ -17,8 +20,9 @@ const parser = StructuredOutputParser.fromNamesAndDescriptions({
     'Seven day weather forecast, broken down day by day for the user in the form of a concise chart',
 });
 
-const formatInstructions = parser.getFormatInstructions();
+const formatInstructions = parser.getFormatInstructions(); // Get the format instructions for the parser
 
+// Function to prompt the user for input and then call the model with the input
 const promptFunc = async (input) => {
   try {
     const prompt = new PromptTemplate({
@@ -37,6 +41,7 @@ const promptFunc = async (input) => {
   }
 };
 
+// Function to initialize the program
 const init = () => {
   inquirer
     .prompt([
